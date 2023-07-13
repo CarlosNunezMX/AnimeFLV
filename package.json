@@ -2,7 +2,7 @@
   "name": "animeflv",
   "version": "0.5.0",
   "description": "NodeJS AnimeFLV scrapper",
-  "main": "index.js",
+  "main": "source/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
