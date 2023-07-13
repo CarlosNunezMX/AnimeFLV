@@ -9,7 +9,6 @@ type SearchResults = {
     Description: string
 }
 
-
 type HomeScreenEpisode = {
     Id: string,
     Image: string,
@@ -17,9 +16,29 @@ type HomeScreenEpisode = {
     Anime: string
 }
 
-type SearchOptions = {
-    text: string
+
+type EpisodeInfo = {
+    Image: string,
+    Number: number,
+    Id: string
 }
+
+type AnimeInfo = {
+    Episodes: EpisodeInfo[],
+    Title: string,
+    Alternative_Names: string[],
+    Reviews: {
+        Review: number,
+        Number: number,
+    }
+    Type: string,
+    Image: string,
+    OnGoing: boolean,
+    Followers: number,
+    Genders: string[],
+    Description: string
+}
+
 export function GetNewSeries($?:CheerioAPI): Promise<SearchResults[]>;
-export function Search(Query: SearchOptions): Promise<SearchResults[]>;
+export function Search(Query: string): Promise<SearchResults[]>;
 export function GetNewEpisodes($?:CheerioAPI): Promise<HomeScreenEpisode[]>;

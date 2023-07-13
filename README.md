@@ -17,7 +17,7 @@ This is our RoadMap ⏲️
 
 - [x] Search
 - [x] Get Anime Info
-- [-] Get Episodes
+- [x] Get Episodes
     - **We're working hardest on it**
 - [] Get Episode Sources
 
