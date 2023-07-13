@@ -1,6 +1,17 @@
 # AnimeFLV Scrapper 📺
 Dependecy-Lowest NovelCool scrapper for nodejs, just using `cheerio` for DOM parsing.
 
+## Now in npm 🥳
+Install this module with
+```bash
+# npm
+npm i @carlosnunezmx/animeflv
+
+#pnpm
+pnpm add @carlosnunezmx/animeflv
+```
+
+
 ## RoadMap
 This is our RoadMap ⏲️
 
@@ -14,8 +25,8 @@ This is our RoadMap ⏲️
 Just import from the module and instance it, then run exec method
 
 ```js
-import {Search} from "animeflv";
-Search("yumemiru danshi")
+import {Search} from "@carlosnunezmx/animeflv";
+Search({text: "yumemiru danshi"})
     .then(console.log);
 
 /**
