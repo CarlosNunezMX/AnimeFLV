@@ -1,11 +1,15 @@
 {
   "name": "@carlosnunezmx/animeflv",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "NodeJS AnimeFLV scrapper",
   "main": "source/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CarlosNunezMX/AnimeFLV.git"
   },
   "keywords": ["anime", "animeflv", "animeflv scrapper", "anime spanish", "anime español"],
   "author": "",
