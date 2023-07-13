@@ -5,10 +5,10 @@ Dependecy-Lowest NovelCool scrapper for nodejs, just using `cheerio` for DOM par
 Install this module with
 ```bash
 # npm
-npm i anime-flv
+npm i @carlosnunezmx/animeflv
 
 #pnpm
-pnpm add anime-flv
+pnpm add @carlosnunezmx/animeflv
 ```
 
 
@@ -25,7 +25,7 @@ This is our RoadMap ⏲️
 Just import from the module and instance it, then run exec method
 
 ```js
-import {Search} from "anime-flv";
+import {Search} from "@carlosnunezmx/animeflv";
 Search({text: "yumemiru danshi"})
     .then(console.log);
 
