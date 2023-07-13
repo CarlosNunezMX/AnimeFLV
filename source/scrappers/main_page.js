@@ -1,8 +1,5 @@
-import config from "../config.js";
-
 import {  load } from "cheerio";
-import config from "./config.js";
-import { GetNewSeries } from "./scrappers/main_page.js";
+import config from "../config.js";
 
 export async function GetHomeScreen(){
     const request = await fetch(config.baseURL)
@@ -37,8 +34,10 @@ export async function GetNewSeries($){
 
         const Title = $anime.find(".Title")
             .text();
-        const Review = $anime.find(".Vts")
+        let Review = $anime.find(".Vts")
             .text();
+        
+        Review = Review === "" ? 0 : Number(Review)
         const _$Description = $anime.find(".Description p").get(1)
         const Description = $(_$Description).text()
 
@@ -69,8 +68,10 @@ export async function GetNewEpisodes($){
         const Image = config.baseURL + $episodio.find(".Image img")
             .attr("src");
         
-        const Episode = $episodio.find(".Capi")
-            .text();
+        let Episode = $episodio.find(".Capi")
+            .text()
+            .replace("Episodio ", "");
+        Episode = isNaN(Number(Episode)) ? Episode : Number(Episode);
         
         const Anime = $episodio.find("strong.Title")
             .text()

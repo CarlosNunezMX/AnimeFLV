@@ -12,8 +12,8 @@ import { GetNewSeries } from "./main_page.js";
  *  
  */
 
-export async function Search(Query){
-    const request = await fetch(config.baseURL + config.search + Query);
+export  async function Search(Query){
+    const request = await fetch(config.baseURL + config.search + Query.text);
     const response = await request.text();
 
     const $ = load(response);
