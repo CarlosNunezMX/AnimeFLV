@@ -42,3 +42,5 @@ type AnimeInfo = {
 export function GetNewSeries($?:CheerioAPI): Promise<SearchResults[]>;
 export function Search(Query: string): Promise<SearchResults[]>;
 export function GetNewEpisodes($?:CheerioAPI): Promise<HomeScreenEpisode[]>;
+export function GetAnimeInfo(Query: string): Promise<AnimeInfo>;
+export function GetEpisodes({$, anime_id}: {$?: CheerioAPI, anime_id?: string}): Promise<EpisodeInfo[]>
