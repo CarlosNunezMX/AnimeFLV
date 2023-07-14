@@ -44,12 +44,25 @@ class ValidationError extends error{
     constructor(message: string, el: Object);
 }
 
+type EpisodeResource = {
+    server: string,
+    title: string,
+    ads: number,
+    allow_mobile: boolean,
+    code: string
+}
+
+type EpisodeResources = {
+    SUB: EpisodeInfo[],
+    LAT: EpisodeInfo[]
+}
+
 export function GetNewSeries($?:CheerioAPI): Promise<SearchResults[]>;
 export function Search(Query: string): Promise<SearchResults[]>;
 export function GetNewEpisodes($?:CheerioAPI): Promise<HomeScreenEpisode[]>;
 export function GetAnimeInfo(Query: string): Promise<AnimeInfo>;
 export function GetEpisodes({$, anime_id}: {$?: CheerioAPI, anime_id?: string}): Promise<EpisodeInfo[]>
-
+export function GetResource(Query: string): Promise<EpisodeResource[]>
 export const Errors = {
     ValidationError
 }

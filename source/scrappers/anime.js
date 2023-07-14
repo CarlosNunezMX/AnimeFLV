@@ -1,14 +1,12 @@
-import { load } from "cheerio";
 import config from "../config.js"
 import { ValidationError } from "../errors.js";
+import { fetchResource } from "./fetch.js";
 
 export async function GetAnimeInfo(Query) {
     if(!Query)
         throw new ValidationError("Se requiere una Query para obtener el Anime", {Query: true})
-    const request = await fetch(config.baseURL + config.anime + Query);
-    const response = await request.text();
-
-    const $ = load(response);
+        
+    const $ = await fetchResource({resource: config.baseURL + config.anime + Query});
 
     // Ficha
     const $Ficha = $(".Ficha").first();

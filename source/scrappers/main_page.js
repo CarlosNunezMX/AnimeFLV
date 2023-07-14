@@ -1,12 +1,7 @@
 import {  load } from "cheerio";
 import config from "../config.js";
+import { fetchResource } from "./fetch.js";
 
-export async function GetHomeScreen(){
-    const request = await fetch(config.baseURL)
-    const response = await request.text()
-
-    return load(response);
-}
 
 /**
  * 
@@ -15,8 +10,7 @@ export async function GetHomeScreen(){
 
 export async function GetNewSeries($){
     if(!$)
-        $ = await fetch(config.baseURL);
-    
+        $ = await fetchResource({resource: config.baseURL});
     
     const $SeriesList = $(".ListAnimes li article.Anime");
     const Animes = [];
@@ -52,9 +46,9 @@ export async function GetNewSeries($){
 
 
 export async function GetNewEpisodes($){
-    if(!$) 
-        $ = await GetHomeScreen();
-    
+    if(!$)
+        $ = await fetchResource({resource: config.baseURL});
+
     const $EpList = $(".ListEpisodios li a");
 
     if($EpList.length == 0) throw "Hay un error desconocido";

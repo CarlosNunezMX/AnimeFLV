@@ -5,5 +5,6 @@ export default {
     cdn: {
         screenshot: "https://cdn.animeflv.net/screenshots/"
     },
-    userAgent: "@CarlosNunezMX/animeflv"
+    userAgent: "@CarlosNunezMX/animeflv",
+    see: "/ver/"
 }
