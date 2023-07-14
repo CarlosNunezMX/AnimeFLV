@@ -18,8 +18,7 @@ This is our RoadMap ⏲️
 - [x] Search
 - [x] Get Anime Info
 - [x] Get Episodes
-    - **We're working hardest on it**
-- [] Get Episode Sources
+- [x] Get Episode Sources **(Beta support)**
 
 ## Using
 Just import from the module and instance it, then run exec method
