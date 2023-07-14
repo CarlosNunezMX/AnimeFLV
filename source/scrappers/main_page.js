@@ -14,10 +14,9 @@ export async function GetHomeScreen(){
  */
 
 export async function GetNewSeries($){
-    if(!$) {
+    if(!$)
         $ = await fetch(config.baseURL);
-        console.log("$ is not provided");
-    }
+    
     
     const $SeriesList = $(".ListAnimes li article.Anime");
     const Animes = [];
@@ -53,7 +52,9 @@ export async function GetNewSeries($){
 
 
 export async function GetNewEpisodes($){
-    if(!$) $ = await GetHomeScreen();
+    if(!$) 
+        $ = await GetHomeScreen();
+    
     const $EpList = $(".ListEpisodios li a");
 
     if($EpList.length == 0) throw "Hay un error desconocido";

@@ -1,7 +1,10 @@
 import { load } from "cheerio";
 import config from "../config.js"
+import { ValidationError } from "../errors.js";
 
 export async function GetAnimeInfo(Query) {
+    if(!Query)
+        throw new ValidationError("Se requiere una Query para obtener el Anime", {Query: true})
     const request = await fetch(config.baseURL + config.anime + Query);
     const response = await request.text();
 
@@ -80,6 +83,8 @@ export async function GetAnimeInfo(Query) {
  * @param {{$: import("cheerio").CheerioAPI, anime_id?: string}} param0 
  */
 export async function GetEpisodes({ $, anime_id }) {
+    if(!$ && !anime_id)
+        throw new ValidationError("Se requiere un elemento de Cheerio o un anime para buscar sus episodios", {$, anime_id});
     if (!$ && anime_id) {
         const request = fetch(config.baseURL + config.anime + anime_id)
         const response = await request.text();
@@ -94,8 +99,6 @@ export async function GetEpisodes({ $, anime_id }) {
         if (!script.attr("src"))
             noTagScripts.push(script)
     })
-
-    const regex = /\[[^\]]*\]/gs;
 
     const definitiveScript = $(noTagScripts[3])
         .text()
