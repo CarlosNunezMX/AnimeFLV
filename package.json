@@ -2,19 +2,36 @@
   "name": "@carlosnunezmx/animeflv",
   "version": "0.9.2",
   "description": "NodeJS AnimeFLV scrapper",
-  "main": "source/index.js",
-  "type": "module",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ]
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/CarlosNunezMX/AnimeFLV.git"
   },
-  "keywords": ["anime", "animeflv", "animeflv scrapper", "anime spanish", "anime español"],
-  "author": "",
+  "engines": {
+    "node": ">18.0.0"
+  }
+  "keywords": [
+    "anime",
+    "animeflv",
+    "animeflv scrapper",
+    "anime spanish",
+    "anime español"
+  ],
+  "author": "CarlosNunezMX",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "1.0.0-rc.12"
+    "node-html-parser": "^6.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "typescript": "^5.1.6"
   }
 }
