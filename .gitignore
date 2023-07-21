@@ -1,3 +1,5 @@
 **.code-workspace
 node_modules/**
 test
+dist
+types
