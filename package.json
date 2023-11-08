@@ -28,6 +28,8 @@
   "author": "CarlosNunezMX",
   "license": "ISC",
   "dependencies": {
+    "@types/he": "^1.2.3",
+    "he": "^1.2.0",
     "node-html-parser": "^6.1.5"
   },
   "devDependencies": {

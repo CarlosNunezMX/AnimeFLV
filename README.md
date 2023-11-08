@@ -45,4 +45,4 @@ Search({text: "yumemiru danshi"})
 ## Note ⚠️
 For use this module is needed set `"type": "module"` -> on your `package.json`
 
-Made with ❤️ from 🇲🇽 by CarlosNunexMX
+Made with ❤️ from 🇲🇽 by CarlosNunexMX / Discord @karurosu

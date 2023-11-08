@@ -2,7 +2,11 @@ import { HTMLElement } from "node-html-parser";
 import config from "../config.js"
 import { ValidationError, HTML_PARSING_ERROR } from "../errors.js";
 import { fetchResource } from "./fetch.js";
-
+export type AlternativeTitle = {
+    Id: string;
+    Name: string;
+    Type: string;
+}
 export type Anime = {
     Title: string,
     AlternativeNames: string[],
@@ -10,6 +14,7 @@ export type Anime = {
         Review: number,
         Number: number
     },
+    AlternativeTitles: AlternativeTitle[],
     Type: string,
     Image: string,
     Genders: string[] | undefined,
@@ -20,12 +25,12 @@ export type Anime = {
 }
 
 export async function GetAnimeInfo(Query: string): Promise<Anime> {
-    if(!Query)
-        throw new ValidationError("Se requiere una Query para obtener el Anime", {Query: true})
-    const $ = await fetchResource({resource: config.baseURL + config.anime + Query});
+    if (!Query)
+        throw new ValidationError("Se requiere una Query para obtener el Anime", { Query: true })
+    const $ = await fetchResource({ resource: config.baseURL + config.anime + Query });
     // Ficha
     const $Ficha = $.querySelector('.Ficha');
-    if(!$Ficha)
+    if (!$Ficha)
         throw new HTML_PARSING_ERROR(".Ficha", "anime.ts", "GetAnimeInfo", "$Ficha");
 
     // Getting Title
@@ -55,7 +60,7 @@ export async function GetAnimeInfo(Query: string): Promise<Anime> {
     Reviews.Number = Number(RNumber);
 
     const $Body = $.querySelector(".Container aside");
-    if(!$Body)
+    if (!$Body)
         throw new HTML_PARSING_ERROR(".Body", "anime.ts", "GetAnimeInfo", "$Body");
     const Image = $Body.querySelector(".Image img")?.getAttribute('src') ?? "";
 
@@ -67,11 +72,11 @@ export async function GetAnimeInfo(Query: string): Promise<Anime> {
 
     // Generos y descripcion
     const $Main = $.querySelector(".Main");
-    if(!$Main)
+    if (!$Main)
         throw new HTML_PARSING_ERROR(".Main", "anime.ts", "GetAnimeInfo", "$Main");
     const $Tags = $Main.querySelectorAll(".Nvgnrs a");
 
-
+    const alternativeTitles = AlternativeTitles($)
     const Genders: string[] = [];
     if ($Tags.length > 0)
         $Tags.forEach(tag => Genders.push(tag.innerText));
@@ -79,38 +84,59 @@ export async function GetAnimeInfo(Query: string): Promise<Anime> {
     const Description = $Main.querySelector(".Description p")?.innerHTML ?? "";
 
     const Episodes = await GetEpisodes({ $ });
-    return { Title, AlternativeNames, Reviews, Type, Image, OnGoing, Followers, Genders, Description, Episodes }
+    return { Title, AlternativeNames, Reviews, Type, Image, OnGoing, Followers, Genders, Description, Episodes, AlternativeTitles: alternativeTitles }
 
 }
 
+function AlternativeTitles($: HTMLElement): AlternativeTitle[] {
+    const $container = $.querySelectorAll('main.Main ul.ListAnmRel li');
+    if ($container.length == 0) {
+        return [];
+    }
+
+    return $container.map($li => {
+        const $link = $li.querySelector('a');
+        if (!$link)
+            throw new HTML_PARSING_ERROR('ul.ListAnmRel li a', 'anime.ts', 'AlternativeNames', '$link');
+        const Id = $link.getAttribute('href') ?? "";
+        const Name = $link.innerText ?? "";
+        const Type = $li.innerText ?? "";
+
+        return {
+            Id,
+            Name,
+            Type
+        }
+    })
+}
 
 type Episode = {
     Id: string,
     Image: string
 }
 
-export async function GetEpisodes({ $, anime_id }: {$?: HTMLElement, anime_id?: string}): Promise<Episode[]> {
-    if(!$ && !anime_id)
-        throw new ValidationError("Se requiere un elemento de Cheerio o un anime para buscar sus episodios", {$, anime_id});
+export async function GetEpisodes({ $, anime_id }: { $?: HTMLElement, anime_id?: string }): Promise<Episode[]> {
+    if (!$ && !anime_id)
+        throw new ValidationError("Se requiere un elemento de Cheerio o un anime para buscar sus episodios", { $, anime_id });
     if (!$ && anime_id)
         $ = await fetchResource({
             resource: config.baseURL + config.anime + anime_id
         });
-    
+
 
     const scripts = $?.querySelectorAll("script:not([src])");
- 
+
     let FScript: string = "";
     scripts?.forEach(script => {
         const Text = script.innerHTML;
-        if(!Text.includes("episodes") || !Text)
+        if (!Text.includes("episodes") || !Text)
             return;
         FScript = Text;
     })
-    if(!FScript.length)
+    if (!FScript.length)
         throw new HTML_PARSING_ERROR('Source Script', 'anime.ts', 'GetEpisodes', 'FScript');
     // @ts-ignore
-    let var_lines: [Array<string>, Array<number>] = 
+    let var_lines: [Array<string>, Array<number>] =
         FScript.split("\n")
             .filter((line: string) => line.includes("var"))
             .slice(0, 2)
@@ -118,21 +144,21 @@ export async function GetEpisodes({ $, anime_id }: {$?: HTMLElement, anime_id?: 
                 .split("=")[1]
                 .replace(";", "")
             ).map(l => JSON.parse(l))
-    
+
     const Eps = OrderArray(var_lines)
-    
+
     // Ahora sacaremos que la informacion del anime para
     // Construir urls
 
     return Eps.episodes.map(e => {
         const Image = config.cdn.screenshot + Eps.meta.id + "/" + e.episodeNumber + "/th_3.jpg" ?? ""
         const Id = `${Eps.meta.url}-${e.episodeNumber}` ?? ""
-        return {Image, Number: e.episodeNumber, Id}
+        return { Image, Number: e.episodeNumber, Id }
     })
 }
 
 
-function OrderArray([AnimeInfo, episodeArr ]: [Array<string>, Array<number>]){
+function OrderArray([AnimeInfo, episodeArr]: [Array<string>, Array<number>]) {
     const episodes = episodeArr.map(e => ({
         episodeNumber: e[0],
         episodeId: e[1]
