@@ -1,6 +1,6 @@
 {
   "name": "@carlosnunezmx/animeflv",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "NodeJS AnimeFLV scrapper",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
@@ -28,11 +28,11 @@
   "author": "CarlosNunezMX",
   "license": "ISC",
   "dependencies": {
-    "@types/he": "^1.2.3",
     "he": "^1.2.0",
     "node-html-parser": "^6.1.5"
   },
   "devDependencies": {
+    "@types/he": "^1.2.3",
     "@types/node": "^20.4.2",
     "typescript": "^5.1.6"
   }
