@@ -1,5 +1,5 @@
 # AnimeFLV Scrapper 📺
-Dependecy-Lowest NovelCool scrapper for nodejs, just using `cheerio` for DOM parsing.
+Dependecy-Lowest AnimeFLV scrapper for nodejs, just using `node-html-parser` for faster DOM parsing.
 
 ## Now in npm 🥳
 Install this module with
