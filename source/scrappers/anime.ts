@@ -117,7 +117,7 @@ type Episode = {
 
 export async function GetEpisodes({ $, anime_id }: { $?: HTMLElement, anime_id?: string }): Promise<Episode[]> {
     if (!$ && !anime_id)
-        throw new ValidationError("Se requiere un elemento de Cheerio o un anime para buscar sus episodios", { $, anime_id });
+        throw new ValidationError("Se requiere un elemento de paetición o un anime para buscar sus episodios", { $, anime_id });
     if (!$ && anime_id)
         $ = await fetchResource({
             resource: config.baseURL + config.anime + anime_id

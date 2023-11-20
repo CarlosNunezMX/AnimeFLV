@@ -10,7 +10,7 @@ export type HomeElement = {
     Description: string
 }
 
-interface Episode extends Omit<HomeElement, "Description" | "Review" | "Type">{
+export interface Episode extends Omit<HomeElement, "Description" | "Review" | "Type">{
     Anime: string
 }
 export async function GetHome(){
@@ -18,9 +18,11 @@ export async function GetHome(){
         resource: config.baseURL
     })
 
+    const Series = await GetNewSeries(request)
+    const Episodes =  await GetNewEpisodes(request);
     return {
-        Series: GetNewSeries(request),
-        Episodes: GetNewEpisodes(request)
+        Series,
+        Episodes
     }
 };
 
