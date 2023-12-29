@@ -63,7 +63,7 @@ export async function GetAnimeInfo(Query: string): Promise<Anime> {
     const $Body = $.querySelector(".Container aside");
     if (!$Body)
         throw new HTML_PARSING_ERROR(".Body", "anime.ts", "GetAnimeInfo", "$Body");
-    const Image = $Body.querySelector(".Image img")?.getAttribute('src') ?? "";
+    const Image = config.baseURL + $Body.querySelector(".Image img")?.getAttribute('src') ?? "";
 
     const OnGoing = ($Body.querySelector(".AnmStts span")?.innerText ?? '') === "En emision";
 
