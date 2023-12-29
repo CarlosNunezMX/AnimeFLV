@@ -17,6 +17,7 @@ export type Anime = {
     AlternativeTitles: AlternativeTitle[],
     Type: string,
     Image: string,
+    Id: string,
     Genders: string[] | undefined,
     OnGoing: boolean,
     Episodes: Episode[],
@@ -84,7 +85,7 @@ export async function GetAnimeInfo(Query: string): Promise<Anime> {
     const Description = $Main.querySelector(".Description p")?.innerHTML ?? "";
 
     const Episodes = await GetEpisodes({ $ });
-    return { Title, AlternativeNames, Reviews, Type, Image, OnGoing, Followers, Genders, Description, Episodes, AlternativeTitles: alternativeTitles }
+    return { Title, AlternativeNames, Reviews, Type, Image, OnGoing, Followers, Genders, Description, Episodes, AlternativeTitles: alternativeTitles, Id: Query }
 
 }
 
@@ -157,10 +158,12 @@ export async function GetEpisodes({ $, anime_id }: { $?: HTMLElement, anime_id?:
     })
 }
 
-
 function OrderArray([AnimeInfo, episodeArr]: [Array<string>, Array<number>]) {
-    const episodes = episodeArr.map(e => ({
+    
+    const episodes = episodeArr.map((e) => ({
+        // @ts-ignore
         episodeNumber: e[0],
+        // @ts-ignore
         episodeId: e[1]
     }))
     return {
