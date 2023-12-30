@@ -1,6 +1,6 @@
 {
   "name": "@carlosnunezmx/animeflv",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "NodeJS AnimeFLV scrapper",
   "main": "dist/index.js",
   "types": "types/index.d.ts",

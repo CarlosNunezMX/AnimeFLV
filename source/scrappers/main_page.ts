@@ -36,7 +36,7 @@ export async function GetNewSeries(request?: HTMLElement){
         let Result: HomeElement = {};
         Result.Id = $anime.querySelector("a")?.getAttribute("href")?.replace("/anime/", "") ?? "";
         Result.Image = $anime.querySelector(".Image figure img")?.getAttribute("src") ?? "";
-        Result.Image = Result.Image.includes('https://www3.animeflv.net') ? Result.Image ? config.baseURL + Result.Image;
+        Result.Image = Result.Image.includes('https://www3.animeflv.net') ? Result.Image : config.baseURL + Result.Image;
         Result.Type = $anime.querySelector(".Image .Type")?.innerText ?? ""
         Result.Title = $anime.querySelector(".Title")?.innerText ?? "";
         let Review = $anime.querySelector(".Vts")?.innerText ?? "0"
