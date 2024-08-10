@@ -1,3 +1,5 @@
+![AnimeFLV](https://github.com/user-attachments/assets/444bd321-d3a3-49b1-9658-e4fc1bc6acc6)
+
 # AnimeFLV Scrapper 📺
 Dependecy-Lowest AnimeFLV scrapper for nodejs, just using `node-html-parser` for faster DOM parsing.
 
